@@ -1,7 +1,9 @@
+# Windows preinstalled crap removal from https://github.com/Sycnex/Windows10Debloater
 $AppXApps = @(
 
         #Unnecessary Windows 10 AppX Apps
         "*Microsoft.BingNews*"
+		"*Microsoft.BingWeather*"
         "*Microsoft.GetHelp*"
         "*Microsoft.Getstarted*"
         "*Microsoft.Messaging*"
@@ -53,6 +55,8 @@ $AppXApps = @(
         Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $App | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
     }
 
+# Privacy and file explorer customizations from: https://gist.github.com/jessfraz/7c319b046daa101a4aaef937a20ff41f
+
 # Privacy: Let apps use my advertising ID: Disable
 If (-Not (Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
     New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo | Out-Null
@@ -87,7 +91,10 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 # Turn off search bar
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name SearchboxTaskbarMode -Type DWord -Value 0
 
-# Add bash context menu for powershell
+# Turn WSL on
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+
+# Add bash context menu for WSL
 New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 If (-Not (Test-Path "HKCR:\Directory\Background\shell\bash")) {
 	New-Item -Path "HKCR:\Directory\Background\shell\bash" | Out-Null
