@@ -45,7 +45,12 @@ $AppXApps = @(
         "*Twitter*"
         "*Facebook*"
         "*Spotify*"
-
+        "*Minecraft*"
+        "*Royal Revolt*"
+        "*Sway*"
+        "*Speed Test*"
+        "*Dolby*"
+	"*Windows.CBSPreview*"
     )
 
     foreach ($App in $AppXApps) {
