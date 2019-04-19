@@ -44,6 +44,7 @@ $AppXApps = @(
         "*Flipboard*"
         "*Twitter*"
         "*Facebook*"
+	"*Fitbit*"
         "*Spotify*"
         "*Minecraft*"
         "*Royal Revolt*"
