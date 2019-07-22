@@ -100,19 +100,6 @@ Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -
 # Turn WSL on
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
-# Add bash context menu for WSL
-New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-If (-Not (Test-Path "HKCR:\Directory\Background\shell\bash")) {
-	New-Item -Path "HKCR:\Directory\Background\shell\bash" | Out-Null
-}
-Set-ItemProperty -Path "HKCR:\Directory\Background\shell\bash" -Name '(Default)' -Type String -Value "Open Bash Here"
-Set-ItemProperty -Path "HKCR:\Directory\Background\shell\bash" -Name Extended -Type String -Value $null
-
-If (-Not (Test-Path "HKCR:\Directory\Background\shell\bash\command")) {
-	New-Item -Path "HKCR:\Directory\Background\shell\bash\command" | Out-Null
-}
-Set-ItemProperty -Path "HKCR:\Directory\Background\shell\bash\command" -Name '(Default)' -Type String -Value "C:\Windows\System32\bash.exe"
-
 # Set timezone to Australia
 tzutil.exe /s "E. Australia Standard Time"
 Set-Culture -CultureInfo en-AU
