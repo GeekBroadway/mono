@@ -44,7 +44,7 @@ $AppXApps = @(
         "*Flipboard*"
         "*Twitter*"
         "*Facebook*"
-	"*Fitbit*"
+	    "*Fitbit*"
         "*Spotify*"
         "*Minecraft*"
         "*Royal Revolt*"
@@ -97,8 +97,10 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 # Turn off search bar
 Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name SearchboxTaskbarMode -Type DWord -Value 0
 
-# Turn WSL on
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+# Turn WSLv2 on
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+wsl.exe --set-default-version 2
 
 # Set timezone to Australia
 tzutil.exe /s "E. Australia Standard Time"
